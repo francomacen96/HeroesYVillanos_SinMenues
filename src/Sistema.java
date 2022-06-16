@@ -14,6 +14,10 @@ public class Sistema {
 	//private HashSet<Combatiente> liga_villanos;
 	private int opcionMenu;
 
+	public Sistema() {
+		this.opcionMenu = 0;
+	}
+	
 	public static void main(String[] args) {
 		Sistema s = new Sistema();
 		//s.leerArchivoPersonajes();
@@ -103,29 +107,31 @@ public class Sistema {
 		BufferedReader in = new BufferedReader(reader);
 		
 		
-		listarOpciones();
 		
+		listarOpciones();
 		this.opcionMenu = ingresarOpcion(in);
 		
 		while(this.opcionMenu != 100) {
 			switch(this.opcionMenu) {
-			case 0:
-				this.opcionMenu = menuPrincipal();
-				break;
 			case 1:
-				this.opcionMenu = menuBatallar();
+				this.opcionMenu = menuPrincipal();
+				listarOpciones();
+				break;
+			case 2:
+				listarOpcionesMenuBatallar();
+				
+				menuBatallar(ingresarOpcion(in));
 				break;
 			case 100:
 				System.exit(0);
 			default:
 				System.out.println("Opcion no valida");
 				this.opcionMenu = 0;
+				listarOpciones();
 				break;
 			}
 			this.opcionMenu = ingresarOpcion(in);
 		}
-		if(this.opcionMenu != 100)
-			listarOpciones();
 	}
 	
 	private int menuPrincipal() {
@@ -133,17 +139,45 @@ public class Sistema {
 		return 1;
 	}
 	
-	private int menuBatallar() {
+	private int menuBatallar(int seleccion) {
 		System.out.println("Entre en menu batallar, salgo");
+		switch(seleccion) {
+		case 1:
+			System.out.println("Llamo a funcion batalla 1 vs 1");
+			this.opcionMenu = 0;
+			listarOpciones();
+			break;
+		case 2:
+			System.out.println("Llamo a funcion batallar 1 contra Liga");
+			this.opcionMenu = 0;
+			listarOpciones();
+			break;
+		case 3:
+			System.out.println("Llamo a funcion batallar Liga contra Liga");
+			this.opcionMenu = 0;
+			listarOpciones();
+			break;
+		default:
+			System.out.println("Opcion no valida");
+			this.opcionMenu = 0;
+			listarOpciones();
+			break;
+		}
 		return 0;
 	}
 	
 	private void listarOpciones() {
 		System.out.println("Menu principal");
-		System.out.println("0 - Permanecer");
-		System.out.println("1 - menuBatallar");
+		System.out.println("1 - Permanecer");
+		System.out.println("2 - menuBatallar");
 		System.out.println("100 - Salir");
 		
+	}
+	
+	private void listarOpcionesMenuBatallar() {
+		System.out.println("Opcion 1 : Batalla 1 vs 1");
+		System.out.println("Opcion 2 : Batalla 1 vs Liga");
+		System.out.println("Opcion 3 : Batalla Liga vs Liga");
 	}
 	
 	private int ingresarOpcion(BufferedReader in) {
