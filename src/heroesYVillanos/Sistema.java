@@ -10,9 +10,9 @@ import java.util.HashSet;
 
 public class Sistema {
 
-	//private HashMap<String, Combatiente> personajes;
-	//private HashSet<Combatiente> liga_heroes;
-	//private HashSet<Combatiente> liga_villanos;
+	private HashMap<String, Combatiente> personajes;
+	private HashSet<Combatiente> liga_heroes;
+	private HashSet<Combatiente> liga_villanos;
 	private int opcionMenu;
 
 	public Sistema() {
