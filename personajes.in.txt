@@ -1,0 +1,4 @@
+Héroe, Edward Blake, The Comedian, 100, 200, 150, 50
+Villano, Adrian Veidt, Ozymandias, 120, 180, 200, 200
+Villano, Joss Wheedon, Rorschach, 90, 80, 110, 175
+Héroe, Zack Snyder, Watchmen, 100, 200, 130, 190
