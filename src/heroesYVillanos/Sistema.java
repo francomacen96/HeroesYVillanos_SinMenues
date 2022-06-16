@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Sistema {
 
@@ -145,16 +147,19 @@ public class Sistema {
 		switch(seleccion) {
 		case 1:
 			System.out.println("Llamo a funcion batalla 1 vs 1");
+			batallar1Contra1();
 			this.opcionMenu = 0;
 			listarOpciones();
 			break;
 		case 2:
 			System.out.println("Llamo a funcion batallar 1 contra Liga");
+			batallar1ContraLiga();
 			this.opcionMenu = 0;
 			listarOpciones();
 			break;
 		case 3:
 			System.out.println("Llamo a funcion batallar Liga contra Liga");
+			batallarLigaContraLiga();
 			this.opcionMenu = 0;
 			listarOpciones();
 			break;
@@ -165,6 +170,62 @@ public class Sistema {
 			break;
 		}
 		return 0;
+	}
+	
+	private void batallar1Contra1() {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingrese nombre de personaje: ");
+		String nombrePersonaje = entrada.nextLine();
+		System.out.println("Ingrese nombre de combatiente a enfrentar: ");
+		String nombreContrincante = entrada.nextLine();
+		System.out.println("Ingrese caracteristica a determinar ganador: ");
+		Caracteristica c = Caracteristica.valueOf(entrada.nextLine().toUpperCase());
+		try {
+			personajes.get(nombrePersonaje).esGanador(personajes.get(nombreContrincante), c);
+		} catch (NoSuchElementException e) {
+			System.err.println("No se encontro al personaje");
+		}
+		
+	}
+	
+	private void batallar1ContraLiga() {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingrese nombre de personaje: ");
+		String nombrePersonaje = entrada.nextLine();
+		System.out.println("Ingrese nombre de liga a enfrentar: ");
+		String nombreLiga = entrada.nextLine();
+		System.out.println("Ingrese bajo que caracteristica combatiran: ");
+		Caracteristica c = Caracteristica.valueOf(entrada.nextLine()
+				.toUpperCase());
+		
+		try {
+			personajes.get(nombrePersonaje).esGanador(ligas.get(nombreLiga), c);
+
+		} catch (NoSuchElementException e) {
+			System.err.println("No se encontro al personaje o liga");
+		}
+	}
+	
+	private void batallarLigaContraLiga() {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingrese nombre de liga: ");
+		String nombreLiga1 = entrada.nextLine();
+		System.out.println("Ingrese nombre de liga a quien enfrentará: "
+				+ nombreLiga1);
+		String nombreLiga2 = entrada.nextLine();
+		System.out.println("Ingrese bajo que caracteristica combatiran: ");
+		Caracteristica c = Caracteristica.valueOf(entrada.nextLine()
+				.toUpperCase());
+		
+		try {
+			ligas.get(liga1).esGanador(ligas.get(liga2), c);
+
+		} catch (NoSuchElementException e) {
+			System.err.println("No se encontro al personaje o liga");
+		}
 	}
 	
 	private void listarOpciones() {
