@@ -1,12 +1,10 @@
 package heroesYVillanos;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import junit.framework.Assert;
 
 public class LigaTest {
 
@@ -43,7 +41,7 @@ public class LigaTest {
 		Assert.assertEquals(Equipo.VILLANO, lista.get(0).getEquipo());
 	}
 	
-	@Test
+	@Test(expected = Error.class)
 	public void devuelveErrorAquellosCombatientesQueNOEstanEnElMismoEquipoDeLiga() {
 		HashSet<Combatiente> combatientes = new HashSet<Combatiente>();
 		Combatiente c1 = new Heroe("Batman","Bruce Wayne", 1, 2, 7, 4);
@@ -53,9 +51,7 @@ public class LigaTest {
 		liga.agregarCombatiente(c1);
 		liga.agregarCombatiente(c2);
 		liga.agregarCombatiente(c3);		
-		
-		Assert.assertEquals(c1.getEquipo(), liga.getEquipo());
-	}
+			}
 	
 	@Test
 	public void devuelveListaDeCombatienteOrdenadosDeSuVelocidad() {
