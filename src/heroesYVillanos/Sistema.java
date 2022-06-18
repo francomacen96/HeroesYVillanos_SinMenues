@@ -43,25 +43,28 @@ public class Sistema {
 		listarOpciones();
 		this.opcionMenu = ingresarOpcion(in);
 
-		switch (this.opcionMenu) {
-		case 1:
-			ejecutarFuncionPersonajes();
-			break;
-		case 2:
-			ejecutarFuncionLigas();
-			break;
-		case 3:
-			ejecutarFuncionBatallar();
-			break;
-		case 4: 
-			ejecutarFuncionReporte();
-		case 5:
-			System.exit(0);
-		default:
-			System.out.println("Opcion no valida");
-			this.opcionMenu = 0;
-			listarOpciones();
-			break;
+		while(true) {
+			switch (this.opcionMenu) {
+			case 1:
+				ejecutarFuncionPersonajes();
+				break;
+			case 2:
+				ejecutarFuncionLigas();
+				break;
+			case 3:
+				ejecutarFuncionBatallar();
+				break;
+			case 4: 
+				ejecutarFuncionReporte();
+			case 5:
+				System.exit(0);
+			default:
+				System.err.println("Opcion no valida");
+				this.opcionMenu = 0;
+				listarOpciones();
+				this.opcionMenu = ingresarOpcion(in);
+				break;
+			}
 		}
 	}
 
@@ -79,13 +82,20 @@ public class Sistema {
 	private int ingresarOpcion(BufferedReader in) {
 		String entrada = "";
 		int entradaInt;
+		
+		System.out.println("Ingrese opcion:");
 		try {
 			entrada = in.readLine();
-		} catch (IOException E) {
+			System.out.println("Entrada: " + entrada);
+		} catch (IOException E){
 			System.err.println(E);
+			return -1;
 		}
-		entradaInt = Integer.parseInt(entrada);
-
+		try {
+			entradaInt = Integer.parseInt(entrada);
+		}catch (NumberFormatException E) {
+			return -1;
+		}
 		return entradaInt;
 	}
 
@@ -122,7 +132,7 @@ public class Sistema {
 		case 5: {
 			menues();
 		}default:
-			System.out.println("Opcion no valida");
+			System.err.println("Opcion no valida");
 			ejecutarFuncionPersonajes();
 		
 		}
@@ -145,6 +155,7 @@ public class Sistema {
 				int fuerza = Integer.parseInt(datos[4]);
 				int resistencia = Integer.parseInt(datos[5]);
 				int destreza = Integer.parseInt(datos[6]);
+
 
 				Combatiente personaje = null;
 	
@@ -263,7 +274,7 @@ public class Sistema {
 		case 5: {
 			menues();
 		}default:
-			System.out.println("Opcion no valida");
+			System.err.println("Opcion no valida");
 			ejecutarFuncionLigas();
 		
 		}
@@ -279,7 +290,7 @@ public class Sistema {
 				String[] datos = oneLine.split(", ");
 				for (String dato : datos) {
 					Liga liga = null;
-					String nombre = "Liga " +dato;
+					String nombre = "Liga: " +dato;
 					try {
 					
 					if (this.personajes.get(dato) != null) {
@@ -492,7 +503,7 @@ public class Sistema {
 			menues();
 		}
 		default:
-			System.out.println("Opcion no valida");
+			System.err.println("Opcion no valida");
 			ejecutarFuncionBatallar();
 		}
 		entrada.close();
@@ -555,7 +566,7 @@ public class Sistema {
 			String carac = entrada.nextLine();
 			Caracteristica c1 = Caracteristica.valueOf(carac.toUpperCase());
 
-			String resultado = getCombatientesOLigasQueGananAOtroCombatiente(this.personajes, this.ligas,
+			String resultado = getCombatientesQueGananAOtroCombatiente(this.personajes, this.ligas,
 					nombre, c1);
 			System.out.println("Los combatientes que vencen a " + nombre
 					+ " son: " + resultado);
@@ -574,14 +585,14 @@ public class Sistema {
 			menues();
 		}
 		default: {
-			System.out.println("Opcion no valida");
+			System.err.println("Opcion no valida");
 			ejecutarFuncionReporte();
 		}
 		}
 		entrada.close();
 	}
 
-	private String getCombatientesOLigasQueGananAOtroCombatiente(HashMap<String,Combatiente> listaPersonajes, HashMap<String,Liga> listaLigas
+	private String getCombatientesQueGananAOtroCombatiente(HashMap<String,Combatiente> listaPersonajes, HashMap<String,Liga> listaLigas
 			,String combatiente, Caracteristica c) {
 		String nombres = " ";
 		Combatiente c1 = listaPersonajes.get(combatiente);
@@ -592,14 +603,14 @@ public class Sistema {
 		while (itr1.hasNext()) {
 			Combatiente otroComb = itr1.next().getValue();
 			if (c1.compareTo(otroComb, c) < 0) {
-				nombres += " " +otroComb.getNombre();
+				nombres += ", " +otroComb.getNombre();
 			}
 		}
-
+		
 		while (itr2.hasNext()) {
 			Liga otraLiga = itr2.next().getValue();
 			if (c1.compareTo(otraLiga, c) < 0) {
-				nombres += " " + otraLiga.getNombre();
+				nombres += ", " + otraLiga.getNombre();
 			}
 		}
 		return nombres;
