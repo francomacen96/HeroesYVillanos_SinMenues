@@ -1,5 +1,8 @@
+package heroesYVillanos;
+
+import org.junit.jupiter.api.Test;
+
 import org.junit.Assert;
-import org.junit.Test;
 
 public class CombatienteTest {
 

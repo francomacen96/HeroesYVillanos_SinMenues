@@ -43,26 +43,26 @@ public class Sistema {
 		listarOpciones();
 		this.opcionMenu = ingresarOpcion(in);
 
-			switch (this.opcionMenu) {
-			case 1:
-				ejecutarFuncionPersonajes();
-				break;
-			case 2:
-				ejecutarFuncionLigas();
-				break;
-			case 3:
-				ejecutarFuncionBatallar();
-				break;
-			case 4: 
-				ejecutarFuncionReporte();
-			case 5:
-				System.exit(0);
-			default:
-				System.out.println("Opcion no valida");
-				this.opcionMenu = 0;
-				listarOpciones();
-				break;
-			}
+		switch (this.opcionMenu) {
+		case 1:
+			ejecutarFuncionPersonajes();
+			break;
+		case 2:
+			ejecutarFuncionLigas();
+			break;
+		case 3:
+			ejecutarFuncionBatallar();
+			break;
+		case 4: 
+			ejecutarFuncionReporte();
+		case 5:
+			System.exit(0);
+		default:
+			System.out.println("Opcion no valida");
+			this.opcionMenu = 0;
+			listarOpciones();
+			break;
+		}
 	}
 
 	private void listarOpciones() {
@@ -94,11 +94,11 @@ public class Sistema {
 	 */
 
 	public void ejecutarFuncionPersonajes() {
-		System.out.println("Opcion 1 : Carga desde archivo");
-		System.out.println("Opcion 2 : Crear personaje");
-		System.out.println("Opcion 3 : Listado de personaje");
-		System.out.println("Opcion 4 : Guardar en archivo personaje");
-		System.out.println("Opcion 5 : Volver al menu");
+		System.out.println("1 - Carga desde archivo");
+		System.out.println("2 - Crear personaje");
+		System.out.println("3 - Listado de personajes");
+		System.out.println("4 - Guardar personajes en archivo");
+		System.out.println("5 - Volver al menu");
 
 		Scanner entrada = new Scanner(System.in);
 		int eleccion = entrada.nextInt();
@@ -235,11 +235,11 @@ public class Sistema {
 	 */
 
 	public void ejecutarFuncionLigas() {
-		System.out.println("Opcion 1 : Carga desde archivo");
-		System.out.println("Opcion 2 : Crear liga");
-		System.out.println("Opcion 3 : Listado de ligas");
-		System.out.println("Opcion 4 : Guardar en archivo ligas");
-		System.out.println("Opcion 5 : Volver al menu");
+		System.out.println("1 - Carga desde archivo");
+		System.out.println("2 - Crear liga");
+		System.out.println("3 - Listado de ligas");
+		System.out.println("4 - Guardar en archivo ligas");
+		System.out.println("5 - Volver al menu");
 
 		Scanner entrada = new Scanner(System.in);
 		int eleccion = entrada.nextInt();
@@ -437,10 +437,10 @@ public class Sistema {
 	 * BATALLAR
 	 */
 	public void ejecutarFuncionBatallar() {
-		System.out.println("Opcion 1 : Batalla 1 vs 1");
-		System.out.println("Opcion 2 : Batalla 1 vs Liga");
-		System.out.println("Opcion 3 : Batalla Liga vs Liga");
-		System.out.println("Opcion 4 : Volver al menu");
+		System.out.println("1 - Batalla 1 vs 1");
+		System.out.println("2 - Batalla 1 vs Liga");
+		System.out.println("3 - Batalla Liga vs Liga");
+		System.out.println("4 - Volver al menu");
 
 		Scanner entrada = new Scanner(System.in);
 		int eleccion = entrada.nextInt();
@@ -538,9 +538,9 @@ public class Sistema {
 
 	public void ejecutarFuncionReporte() {
 		Scanner entrada = new Scanner(System.in);
-		System.out.println("Opcion 1: Obtener combatientes o ligas que derroten a un combatiente determinado");
-		System.out.println("Opcion 2: Listado ordenado de combatiente por determinada caracxteristica");
-		System.out.println("Opcion 3: Volver al menu");
+		System.out.println("1 - Obtener combatientes que derroten a un combatiente determinado");
+		System.out.println("2 - Listado ordenado de combatiente por determinada caracxteristica");
+		System.out.println("3 - Volver al menu");
 
 		int opcion = entrada.nextInt();
 
