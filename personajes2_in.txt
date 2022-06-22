@@ -1,0 +1,9 @@
+Heroe, Aragorn, Rey de Gondor, 1, 99, 1, 99
+Villano, Morgoth, El Opresor, 1, 98, 2, 98
+Villano, Sauron, El Senior Oscuro, 98, 2, 98, 2
+Heroe, Gandalf, El Blanco, 99, 1, 99, 1
+Heroe, Frodo, El Portador, 1, 90,50, 1
+Heroe, Sam, El Jardinero, 1, 90, 40, 1
+Heroe, Pipin, El guerrero, 1,80,40,5
+Heroe, Merry, El magnifico, 1, 80, 40, 4
+Villano, Orco, Uruk-hai, 1, 80, 40, 4

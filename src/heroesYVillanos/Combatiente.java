@@ -2,7 +2,7 @@ package heroesYVillanos;
 
 import java.util.HashMap;
 
-public abstract class Combatiente {
+public abstract class Combatiente implements Comparable<Combatiente>{
 
 	private String nombre; // nombre de liga o personaje
 	private Equipo equipo;
@@ -73,12 +73,56 @@ public abstract class Combatiente {
 		return equipo;
 	}
 
+	/* @delete
 	public int compareTo(Liga otraLiga, Caracteristica c) {
 		return Integer.compare(this.getCaracteristica(c), otraLiga.getCaracteristica(c));
 	}
-
-	public int compareTo(Combatiente otroCombatiente, Caracteristica c) {
+	*/
+	
+	/*public int compareTo(Combatiente otroCombatiente, Caracteristica c) { //@todo borrar o cambiar
 		return Integer.compare(this.getCaracteristica(c), otroCombatiente.getCaracteristica(c));
-	}
+	}*/
 
+	/*
+	 * public int compareTo(Combatiente otroCombatiente) : 
+	 * Compara por las cuatro caracteristicas, en un orden determinado. Sirve para listar personajes por múltiples caracteristicas a la vez.
+	 * Si se quiere comparar por alguna característica en específico, utilizar Comparator.
+	 * */
+	@Override
+	public int compareTo(Combatiente otroCombatiente) {
+		boolean mismaFuerza = false, mismaVelocidad = false, mismaDestreza = false, mismaResistencia = false;
+		
+		mismaFuerza = this.getCaracteristica(Caracteristica.FUERZA) == otroCombatiente.getCaracteristica(Caracteristica.FUERZA);
+		mismaVelocidad = this.getCaracteristica(Caracteristica.VELOCIDAD) == otroCombatiente.getCaracteristica(Caracteristica.VELOCIDAD);
+		mismaDestreza = this.getCaracteristica(Caracteristica.DESTREZA) == otroCombatiente.getCaracteristica(Caracteristica.DESTREZA);
+		mismaResistencia = this.getCaracteristica(Caracteristica.RESISTENCIA) == otroCombatiente.getCaracteristica(Caracteristica.RESISTENCIA);
+		
+		System.out.println("Personajes: " + this.nombre + " y " + otroCombatiente.nombre);
+		System.out.println("Misma fuerza: " + mismaFuerza);
+		System.out.println("Misma velocidad: " + mismaVelocidad);
+		System.out.println("Misma destreza: " + mismaDestreza);
+		System.out.println("Misma resistencia: " + mismaResistencia);
+		
+		
+		if(mismaFuerza && mismaVelocidad && mismaDestreza) {
+			System.out.println("If 1");
+			return Integer.compare(this.getCaracteristica(Caracteristica.RESISTENCIA), otroCombatiente.getCaracteristica(Caracteristica.RESISTENCIA));
+		} else if(mismaFuerza && mismaVelocidad && !mismaDestreza) {
+			System.out.println("If 2");
+			return Integer.compare(this.getCaracteristica(Caracteristica.DESTREZA), otroCombatiente.getCaracteristica(Caracteristica.DESTREZA));
+		} else if(mismaFuerza && !mismaVelocidad) {
+			System.out.println("If 3");
+			return Integer.compare(this.getCaracteristica(Caracteristica.VELOCIDAD), otroCombatiente.getCaracteristica(Caracteristica.VELOCIDAD));
+		} else {
+			System.out.println("If 4");
+			return Integer.compare(this.getCaracteristica(Caracteristica.FUERZA), otroCombatiente.getCaracteristica(Caracteristica.FUERZA));
+		}
+		
+	}
+	
+	@Override
+	public String toString() {
+		return this.nombre + " " + getCaracteristica(Caracteristica.FUERZA) + " , " + getCaracteristica(Caracteristica.VELOCIDAD) + " , " + getCaracteristica(Caracteristica.DESTREZA) + " , " + getCaracteristica(Caracteristica.RESISTENCIA);
+	}
+	
 }

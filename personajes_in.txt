@@ -1,0 +1,4 @@
+Heroe, Aragorn, Rey de Gondor, 1, 99, 1, 99
+Villano, Morgoth, El Opresor, 2, 98, 2, 98
+Villano, Sauron, El Senior Oscuro, 98, 2, 98, 2
+Heroe, Gandalf, El Blanco, 99, 1, 99, 1

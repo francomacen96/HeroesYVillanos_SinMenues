@@ -10,12 +10,14 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
 public class Sistema {
 
-	private HashMap<String, Combatiente> personajes;
+	private HashMap<String, Combatiente> personajes; //@todo se debe hacer una sola lista de Combatientes
 	private HashMap<String, Liga> ligas;
 
 	private int opcionMenu;
@@ -141,7 +143,7 @@ public class Sistema {
 	public void cargaArchivoPersonajes() {
 
 		try {
-			FileReader archivo = new FileReader("personajes.in.txt");
+			FileReader archivo = new FileReader("personajes_in.txt");
 			BufferedReader lector = new BufferedReader(archivo);
 			String oneLine = lector.readLine();
 
@@ -566,7 +568,7 @@ public class Sistema {
 			String carac = entrada.nextLine();
 			Caracteristica c1 = Caracteristica.valueOf(carac.toUpperCase());
 
-			String resultado = getCombatientesQueGananAOtroCombatiente(this.personajes, this.ligas,
+			String resultado = reporteCombatientesQueGananAOtroCombatiente(this.personajes, this.ligas,
 					nombre, c1);
 			System.out.println("Los combatientes que vencen a " + nombre
 					+ " son: " + resultado);
@@ -574,12 +576,13 @@ public class Sistema {
 			entrada.close();
 		}
 		case 2:{ 
-			entrada = new Scanner(System.in);
-			System.out.println("Ingresar caractersitica: ");
-			Caracteristica c2 = Caracteristica.valueOf(entrada.nextLine()
-					.toUpperCase());
-			ejecutarFuncionReporte();
-			entrada.close();
+			//entrada = new Scanner(System.in);
+			//System.out.println("Ingresar caractersitica: ");
+			//Caracteristica c2 = Caracteristica.valueOf(entrada.nextLine()
+			//		.toUpperCase());
+			//ejecutarFuncionReporte();
+			//entrada.close();
+			reporteCombatientesPorCaracteristicas();
 		}
 		case 3: { 
 			menues();
@@ -592,10 +595,10 @@ public class Sistema {
 		entrada.close();
 	}
 
-	private String getCombatientesQueGananAOtroCombatiente(HashMap<String,Combatiente> listaPersonajes, HashMap<String,Liga> listaLigas
+	private String reporteCombatientesQueGananAOtroCombatiente(HashMap<String,Combatiente> listaPersonajes, HashMap<String,Liga> listaLigas
 			,String combatiente, Caracteristica c) {
 		String nombres = " ";
-		Combatiente c1 = listaPersonajes.get(combatiente);
+		/*Combatiente c1 = listaPersonajes.get(combatiente);
 		
 		Iterator<Entry<String, Combatiente>> itr1 = listaPersonajes.entrySet().iterator();
 		Iterator<Entry<String, Liga>> itr2 = listaLigas.entrySet().iterator();
@@ -612,26 +615,56 @@ public class Sistema {
 			if (c1.compareTo(otraLiga, c) < 0) {
 				nombres += ", " + otraLiga.getNombre();
 			}
-		}
+		}*/
 		return nombres;
 	}
 
-	// private void listarCombatientesPoCaracteristica(Caracteristica c) {
-	// List combatientesOrdenadosAscendentemente = new List();
-	//
-	// Iterator<Entry<String, Combatiente>> itr1 =
-	// this.personajes.entrySet().iterator();
-	// Combatiente comb = itr1.next().getValue();
-	// while (itr1.hasNext()) {
-	// int resultado =
-	// comb.compareTo(this.personajes.get(itr1.next().getValue()), c);
-	//
-	//
-	// if (resultado == -1) {
-	// comb;
-	// }
-	// }
-	//
-	// }
+	private void reporteCombatientesPorCaracteristicas() {
+		PriorityQueue<Combatiente> reporte = new PriorityQueue<Combatiente>();
+		
+		Combatiente urukhai = new Heroe("Orco","Uruk-hai", 1, 80, 40, 4);//@test, en realidad deben cargarse los del archivo
+		Combatiente merry = new Heroe("Meriadoc","Merry", 1, 80, 40, 4);
+		Combatiente pipin = new Heroe("Peregrin","Pipin", 1, 80, 40, 5);
+		Combatiente sam = new Heroe("Samsagaz","Sam", 1, 90, 40, 1);
+		Combatiente frodo = new Heroe("Frodo","El portador", 1, 90, 50, 1);
+		Combatiente morgoth = new Villano("Morgoth", "Senior oscuro", 1, 98, 2, 98);
+		Combatiente aragorn = new Heroe("Aragorn","El heredero", 1, 99, 1, 99);
+		Combatiente sauron = new Villano("Sauron", "El nigromante",98, 2, 98, 2);
+		Combatiente gandalf = new Heroe("Gandalf","El blanco",99, 1, 99, 1);
+
+		reporte.add(urukhai);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		reporte.add(merry);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		reporte.add(pipin);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		reporte.add(sam);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		reporte.add(frodo);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		
+		reporte.add(aragorn);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		reporte.add(morgoth);
+		listarCombatientes(reporte);
+		System.out.println("--------------------");
+		//prueba.cola.add(sauron);
+		//prueba.cola.add(gandalf);
+
+	}
+	
+	private void listarCombatientes(Queue<Combatiente> cola) {
+		Iterator<Combatiente> itr1 = cola.iterator();
+		
+		while(itr1.hasNext()) {
+			System.out.println(itr1.next());
+		}
+	}
 
 }
