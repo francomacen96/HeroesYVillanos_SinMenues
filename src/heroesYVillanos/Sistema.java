@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -58,6 +59,7 @@ public class Sistema {
 				break;
 			case 4: 
 				ejecutarFuncionReporte();
+				break;
 			case 5:
 				System.exit(0);
 			default:
@@ -560,20 +562,29 @@ public class Sistema {
 		switch (opcion) {
 
 		case 1: {
+			Caracteristica c1;
 			entrada = new Scanner(System.in);
 			System.out.println("Ingresar nombre del combatiente: ");
 			String nombre = entrada.nextLine();
 			
 			System.out.println("Ingrese caracteristica: ");
 			String carac = entrada.nextLine();
-			Caracteristica c1 = Caracteristica.valueOf(carac.toUpperCase());
-
+			try {
+				c1 = Caracteristica.valueOf(carac.toUpperCase());
+			}catch(IllegalArgumentException E){
+				System.err.println("Caracteristica invalida");
+				entrada.close();
+				return;
+			}
+			
 			String resultado = reporteCombatientesQueGananAOtroCombatiente(this.personajes, this.ligas,
 					nombre, c1);
-			System.out.println("Los combatientes que vencen a " + nombre
-					+ " son: " + resultado);
+			
+			System.out.println(resultado);
+			
 			ejecutarFuncionReporte();
 			entrada.close();
+			break;
 		}
 		case 2:{ 
 			//entrada = new Scanner(System.in);
@@ -583,13 +594,16 @@ public class Sistema {
 			//ejecutarFuncionReporte();
 			//entrada.close();
 			reporteCombatientesPorCaracteristicas();
+			break;
 		}
 		case 3: { 
 			menues();
+			break;
 		}
 		default: {
 			System.err.println("Opcion no valida");
 			ejecutarFuncionReporte();
+			break;
 		}
 		}
 		entrada.close();
@@ -597,26 +611,73 @@ public class Sistema {
 
 	private String reporteCombatientesQueGananAOtroCombatiente(HashMap<String,Combatiente> listaPersonajes, HashMap<String,Liga> listaLigas
 			,String combatiente, Caracteristica c) {
-		String nombres = " ";
-		/*Combatiente c1 = listaPersonajes.get(combatiente);
+		Comparator<Combatiente> compFuerza = new ComparadorPorFuerza();
+		String resultado = "Los combatientes que vencen a " + combatiente;
+		Combatiente c1;
+		
+		try {
+			c1 = listaPersonajes.get(combatiente);
+			if(c1 == null) {
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException E) {
+			System.err.println("Combatiente ingresado no existe");
+			return "Error";
+		}
+		resultado = resultado +  "(Fza: " + c1.getCaracteristica(c) + ") son : ";
 		
 		Iterator<Entry<String, Combatiente>> itr1 = listaPersonajes.entrySet().iterator();
 		Iterator<Entry<String, Liga>> itr2 = listaLigas.entrySet().iterator();
-
-		while (itr1.hasNext()) {
-			Combatiente otroComb = itr1.next().getValue();
-			if (c1.compareTo(otroComb, c) < 0) {
-				nombres += ", " +otroComb.getNombre();
-			}
-		}
 		
-		while (itr2.hasNext()) {
-			Liga otraLiga = itr2.next().getValue();
-			if (c1.compareTo(otraLiga, c) < 0) {
+		switch(c) {
+			case FUERZA:
+				System.out.println("Comparamos por fuerza"); 
+				while (itr1.hasNext()) {
+					Combatiente otroComb = itr1.next().getValue();
+					if (compFuerza.compare(listaPersonajes.get(combatiente),otroComb) < 0) {
+						resultado += ", " +otroComb.getNombre() + "(Fza: " + otroComb.getCaracteristica(c) + ") ";
+					}
+				}
+				break;
+			case VELOCIDAD:
+				System.out.println("Comparamos por velocidad"); 
+				while (itr1.hasNext()) {
+					Combatiente otroComb = itr1.next().getValue();
+					if (compFuerza.compare(listaPersonajes.get(combatiente),otroComb) < 0) {
+						resultado += ", " +otroComb.getNombre() + "(Vel: " + otroComb.getCaracteristica(c) + ") ";
+					}
+				}
+				break;
+			case DESTREZA:
+				System.out.println("Comparamos por destreza"); 
+				while (itr1.hasNext()) {
+					Combatiente otroComb = itr1.next().getValue();
+					if (compFuerza.compare(listaPersonajes.get(combatiente),otroComb) < 0) {
+						resultado += ", " +otroComb.getNombre() + "(Dest: " + otroComb.getCaracteristica(c) + ") ";
+					}
+				}
+				break;
+			case RESISTENCIA:
+				System.out.println("Comparamos por resistencia"); 
+				while (itr1.hasNext()) {
+					Combatiente otroComb = itr1.next().getValue();
+					if (compFuerza.compare(listaPersonajes.get(combatiente),otroComb) < 0) {
+						resultado += ", " +otroComb.getNombre() + "(Res: " + otroComb.getCaracteristica(c) + ") ";
+					}
+				}
+				break;
+			default:
+				System.out.println("Caso por defecto");//logs
+				break;
+		}
+		/*while (itr2.hasNext()) {
+			Liga otraLiga = itr2.next().getValue();//@todo cambiar forma de cargar ligas para que se puedan comparar ligas correctamente
+			if (compFuerza.compare(listaLigas.get(combatiente), otraLiga) < 0) {
 				nombres += ", " + otraLiga.getNombre();
 			}
 		}*/
-		return nombres;
+		
+		return resultado;
 	}
 
 	private void reporteCombatientesPorCaracteristicas() {
