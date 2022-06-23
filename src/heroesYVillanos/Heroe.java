@@ -17,4 +17,15 @@ public class Heroe extends Combatiente {
 		return nombreCivil;
 	}
 	
+	@Override
+	public String toString() {
+		String datos = super.getEquipo() + ", " +getNombreCivil() + ", " + super.getNombre() + ", "
+				+ super.getCaracteristica(Caracteristica.VELOCIDAD) + ", "
+				+ super.getCaracteristica(Caracteristica.FUERZA) + ", "
+				+ super.getCaracteristica(Caracteristica.RESISTENCIA) + ", "
+				+ super.getCaracteristica(Caracteristica.DESTREZA);
+
+		return datos;
+	}
+	
 }

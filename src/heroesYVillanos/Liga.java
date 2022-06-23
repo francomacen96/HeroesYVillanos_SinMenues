@@ -2,7 +2,7 @@ package heroesYVillanos;
 
 import java.util.HashSet;
 import java.util.TreeSet;
-
+import java.util.Iterator;
 
 public class Liga extends Combatiente{
 	
@@ -58,4 +58,13 @@ public class Liga extends Combatiente{
 		return listaOrdenada;
 	}
 	
+	@Override
+	public String toString() {
+		Iterator<Combatiente> itr1 = combatientes.iterator();
+		String datos = "";
+		while(itr1.hasNext()) {
+			datos += itr1.next().getNombre()+", ";
+		}
+		return datos;
+	}
 }

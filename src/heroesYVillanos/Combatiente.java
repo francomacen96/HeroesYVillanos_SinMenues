@@ -121,9 +121,9 @@ public abstract class Combatiente implements Comparable<Combatiente>{
 		
 	}
 	
-	@Override
+	/*@Override
 	public String toString() {
 		return this.nombre + " " + getCaracteristica(Caracteristica.VELOCIDAD) + " , " + getCaracteristica(Caracteristica.FUERZA) + " , " + getCaracteristica(Caracteristica.RESISTENCIA) + " , " + getCaracteristica(Caracteristica.DESTREZA);
-	}
+	}*/
 	
 }
