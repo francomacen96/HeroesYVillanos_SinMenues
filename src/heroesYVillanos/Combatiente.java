@@ -101,22 +101,28 @@ public abstract class Combatiente implements Comparable<Combatiente>{
 		System.out.println("Personajes: " + this.nombre + " y " + otroCombatiente.nombre);
 		System.out.println("Misma velocidad: " + mismaVelocidad);
 		System.out.println("Misma fuerza: " + mismaFuerza);
-		System.out.println("Misma resistencia: " + mismaResistencia);
 		System.out.println("Misma destreza: " + mismaDestreza);
+		System.out.println("Misma resistencia: " + mismaResistencia);
 		
-		
-		if(mismaFuerza && mismaVelocidad && mismaDestreza) {
-			System.out.println("If 1");
-			return Integer.compare(this.getCaracteristica(Caracteristica.DESTREZA), otroCombatiente.getCaracteristica(Caracteristica.DESTREZA));
-		} else if(mismaFuerza && mismaVelocidad && !mismaDestreza) {
-			System.out.println("If 2");
-			return Integer.compare(this.getCaracteristica(Caracteristica.RESISTENCIA), otroCombatiente.getCaracteristica(Caracteristica.RESISTENCIA));
-		} else if(mismaFuerza && !mismaVelocidad) {
-			System.out.println("If 3");
-			return Integer.compare(this.getCaracteristica(Caracteristica.FUERZA), otroCombatiente.getCaracteristica(Caracteristica.FUERZA));
-		} else {
-			System.out.println("If 4");
-			return Integer.compare(this.getCaracteristica(Caracteristica.VELOCIDAD), otroCombatiente.getCaracteristica(Caracteristica.VELOCIDAD));
+		try {
+			if(mismaVelocidad && mismaFuerza && mismaDestreza) {
+				System.out.println("If 1");
+				return -Integer.compare(this.getCaracteristica(Caracteristica.DESTREZA), otroCombatiente.getCaracteristica(Caracteristica.DESTREZA));
+			} else if(mismaVelocidad && mismaFuerza && !mismaDestreza) {
+				System.out.println("If 2");
+				return -Integer.compare(this.getCaracteristica(Caracteristica.RESISTENCIA), otroCombatiente.getCaracteristica(Caracteristica.RESISTENCIA));
+			} else if( mismaVelocidad && !mismaFuerza) {
+				System.out.println("If 3");
+				return -Integer.compare(this.getCaracteristica(Caracteristica.FUERZA), otroCombatiente.getCaracteristica(Caracteristica.FUERZA));
+			} else if(!mismaVelocidad){
+				System.out.println("If 4");
+				return -Integer.compare(this.getCaracteristica(Caracteristica.VELOCIDAD), otroCombatiente.getCaracteristica(Caracteristica.VELOCIDAD));
+			} else {
+				throw new ErrorDeComparacionException();
+			}
+		}catch(ErrorDeComparacionException E){
+			System.err.println("Hubo un error en la comparacion");
+			return 0;
 		}
 		
 	}

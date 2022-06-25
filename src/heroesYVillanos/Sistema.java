@@ -15,10 +15,13 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.Collections;
+import java.util.ArrayList;
+
 
 public class Sistema {
 
-	private HashMap<String, Combatiente> personajes; //@todo se debe hacer una sola lista de Combatientes
+	private HashMap<String, Combatiente> personajes; // -- Personajes = Heroes + Villanos
 	private HashMap<String, Liga> ligas;
 	public static final int BACK = -1, INCORRECT = -2;
 	private int opcionMenu;
@@ -297,7 +300,7 @@ public class Sistema {
 
 	public void cargaArchivoLiga() {
 		try {
-			FileReader archivo = new FileReader("ligas.in.txt");
+			FileReader archivo = new FileReader("ligas_in.txt");
 			BufferedReader lector = new BufferedReader(archivo);
 			String oneLine = lector.readLine();
 
@@ -701,46 +704,20 @@ public class Sistema {
 	}
 
 	private void reporteCombatientesPorCaracteristicas() {
-		PriorityQueue<Combatiente> reporte = new PriorityQueue<Combatiente>();
+		//PriorityQueue<Combatiente> reporte = new PriorityQueue<Combatiente>();
+		ArrayList<Combatiente> reporte = new ArrayList<Combatiente>();
+		Iterator<Entry<String,Combatiente>> itr1 = this.personajes.entrySet().iterator();
 		
-		Combatiente urukhai = new Heroe("Orco","Uruk-hai", 1, 80, 40, 4);//@test, en realidad deben cargarse los del archivo
-		Combatiente merry = new Heroe("Meriadoc","Merry", 1, 80, 40, 4);
-		Combatiente pipin = new Heroe("Peregrin","Pipin", 1, 80, 40, 5);
-		Combatiente sam = new Heroe("Samsagaz","Sam", 1, 90, 40, 1);
-		Combatiente frodo = new Heroe("Frodo","El portador", 1, 90, 50, 1);
-		Combatiente morgoth = new Villano("Morgoth", "Senior oscuro", 1, 98, 2, 98);
-		Combatiente aragorn = new Heroe("Aragorn","El heredero", 1, 99, 1, 99);
-		Combatiente sauron = new Villano("Sauron", "El nigromante",98, 2, 98, 2);
-		Combatiente gandalf = new Heroe("Gandalf","El blanco",99, 1, 99, 1);
-
-		reporte.add(urukhai);
-		listarCombatientes(reporte);
-		System.out.println("--------------------");
-		reporte.add(merry);
-		listarCombatientes(reporte);
-		System.out.println("--------------------");
-		reporte.add(pipin);
-		listarCombatientes(reporte);
-		System.out.println("--------------------");
-		reporte.add(sam);
-		listarCombatientes(reporte);
-		System.out.println("--------------------");
-		reporte.add(frodo);
-		listarCombatientes(reporte);
-		System.out.println("--------------------");
+		while(itr1.hasNext()) {
+			System.out.println("Agregando ");
+			reporte.add(itr1.next().getValue());
+		}//@continue
 		
-		reporte.add(aragorn);
+		Collections.sort(reporte,new ComparadorPorTodasCaract());
 		listarCombatientes(reporte);
-		System.out.println("--------------------");
-		reporte.add(morgoth);
-		listarCombatientes(reporte);
-		System.out.println("--------------------");
-		reporte.add(sauron);
-		reporte.add(gandalf);
-
 	}
-	
-	private void listarCombatientes(Queue<Combatiente> cola) {
+
+	private void listarCombatientes(ArrayList<Combatiente> cola) {
 		Iterator<Combatiente> itr1 = cola.iterator();
 		
 		while(itr1.hasNext()) {
