@@ -1,0 +1,8 @@
+Frodo, Gandalf, Frodo
+Frodo, Frodo
+Sauron, Gandalf, Sam, Aragorn
+Sauron, Orco, Morgoth
+El Senior Oscuro, El Blanco, El Portador
+El Blanco
+Gandalf
+Juan, Pepe, Jorge, Ricardo, Rodolfo, Oscar

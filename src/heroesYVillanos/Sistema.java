@@ -152,7 +152,8 @@ public class Sistema {
 	public void cargaArchivoPersonajes() {
 
 		try {
-			FileReader archivo = new FileReader("personajes2_in.txt");
+			//FileReader archivo = new FileReader("personajes_in.txt");
+			FileReader archivo = new FileReader("personajes_test_caract_incorr.txt");
 			BufferedReader lector = new BufferedReader(archivo);
 			String oneLine = lector.readLine();
 
@@ -307,34 +308,40 @@ public class Sistema {
 			FileReader archivo = new FileReader("ligas_in.txt");
 			BufferedReader lector = new BufferedReader(archivo);
 			String oneLine = lector.readLine();
-			
 			while (oneLine != null) {
 				int i = 1;
 				try {	
-				String[] datos = oneLine.split(", ");
-						
-						if(this.ligas.containsKey("Liga " + i + " de " + datos[0])) {
-							i++;
+					String[] datos = oneLine.split(", ");
+					System.out.println("Creando nueva liga");
+					if(this.ligas.containsKey("Liga " + i + " de " + datos[0])) {
+						i++;
+					}
+					Liga liga = new Liga("Liga " + i + " de " + datos[0], this.personajes.get(datos[0]).getEquipo(),this.personajes.get(datos[0]).getCaracteristica(
+							Caracteristica.VELOCIDAD),
+						this.personajes.get(datos[0]).getCaracteristica(
+							Caracteristica.FUERZA),
+						this.personajes.get(datos[0]).getCaracteristica(
+							Caracteristica.RESISTENCIA),
+						this.personajes.get(datos[0]).getCaracteristica(
+							Caracteristica.DESTREZA),null);
+					if((liga.getCaracteristica(Caracteristica.VELOCIDAD) <= 0)||
+							(liga.getCaracteristica(Caracteristica.FUERZA) <= 0)||
+							(liga.getCaracteristica(Caracteristica.RESISTENCIA) <= 0)||
+							(liga.getCaracteristica(Caracteristica.DESTREZA) <= 0)) {
+						throw new CombatienteCaractIncorrectas();
+					}
+					this.ligas.put(liga.getNombre(), liga);						
+					
+					System.out.println("Agregando combatientes a la nueva Liga");
+					for(String dato: datos) {
+						if(this.personajes.get(dato).getNombre().equals(dato)){
+							System.out.println("Se encontro el personaje en la lista");
+							liga.agregarCombatiente(this.personajes.get(dato));
+						} else if(this.ligas.get(dato).getNombre().equals(dato)) {
+							System.out.println("No se encontro el personaje");
+							liga.agregarCombatiente(this.ligas.get(dato));
 						}
-						Liga liga = new Liga("Liga " + i + " de " + datos[0], this.personajes.get(datos[0]).getEquipo(),this.personajes.get(datos[0]).getCaracteristica(
-								Caracteristica.VELOCIDAD),
-							this.personajes.get(datos[0]).getCaracteristica(
-								Caracteristica.FUERZA),
-							this.personajes.get(datos[0]).getCaracteristica(
-								Caracteristica.RESISTENCIA),
-							this.personajes.get(datos[0]).getCaracteristica(
-								Caracteristica.DESTREZA),null);
-						this.ligas.put(liga.getNombre(), liga);						
-				
-						for(String dato: datos) {
-							if(this.personajes.get(dato).getNombre().equals(dato)){
-								System.out.println("Se encontro el personaje en la lista");
-								liga.agregarCombatiente(this.personajes.get(dato));
-							} else if(this.ligas.get(dato).getNombre().equals(dato)) {
-								System.out.println("No se encontro el personaje");
-								liga.agregarCombatiente(this.ligas.get(dato));
-							}
-						}
+					}
 						
 				} catch (NoSuchElementException e) {
 					e.getMessage();
@@ -342,6 +349,8 @@ public class Sistema {
 				} catch (NullPointerException e) {
 					e.getMessage();
 
+				} catch(CombatienteCaractIncorrectas e) {
+					System.err.println(e.getMessage());
 				}
 
 				
