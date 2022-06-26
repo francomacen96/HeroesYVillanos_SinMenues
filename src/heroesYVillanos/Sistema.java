@@ -234,7 +234,7 @@ public class Sistema {
 
 	public void guardarEnArchivoPersonajes() {
 		try {
-			FileWriter archivo = new FileWriter("personajes.in.txt");
+			FileWriter archivo = new FileWriter("personajes_out.txt");
 			BufferedWriter escritor = new BufferedWriter(archivo);
 			Iterator<Entry<String, Combatiente>> itr = this.personajes
 					.entrySet().iterator();
@@ -248,7 +248,7 @@ public class Sistema {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Los personajes fueron guardados en el archivo local personajes.in.txt" );
+		System.out.println("Los personajes fueron guardados en el archivo local personajes_out.txt" );
 
 	}
 
@@ -305,56 +305,38 @@ public class Sistema {
 			String oneLine = lector.readLine();
 
 			while (oneLine != null) {
+				try {	
 				String[] datos = oneLine.split(", ");
-				for (String dato : datos) {
-					Liga liga = null;
-					String nombre = "Liga: " +dato;
-					try {
-					
-					if (this.personajes.get(dato) != null) {
+									
+						Liga liga = new Liga(datos[0], this.personajes.get(datos[0]).getEquipo(),this.personajes.get(datos[0]).getCaracteristica(
+								Caracteristica.VELOCIDAD),
+							this.personajes.get(datos[0]).getCaracteristica(
+								Caracteristica.FUERZA),
+							this.personajes.get(datos[0]).getCaracteristica(
+								Caracteristica.RESISTENCIA),
+							this.personajes.get(datos[0]).getCaracteristica(
+								Caracteristica.DESTREZA),null);
+						this.ligas.put(datos[0], liga);						
+				
+						for(String dato: datos) {
+							if(this.personajes.get(dato).getNombre().equals(dato)){
+								System.out.println("Se encontro el personaje en la lista");
+								liga.agregarCombatiente(this.personajes.get(dato));
+							} else if(this.ligas.get(dato).getNombre().equals(dato)) {
+								System.out.println("No se encontro el personaje");
+								liga.agregarCombatiente(this.ligas.get(dato));
+							}
+						}
+						
+				} catch (NoSuchElementException e) {
+					e.getMessage();
 
-						liga = new Liga(nombre, this.personajes.get(dato)
-									.getEquipo(),
-										this.personajes.get(dato).getCaracteristica(
-											Caracteristica.VELOCIDAD),
-										this.personajes.get(dato).getCaracteristica(
-											Caracteristica.FUERZA),
-										this.personajes.get(dato).getCaracteristica(
-											Caracteristica.RESISTENCIA),
-										this.personajes.get(dato).getCaracteristica(
-											Caracteristica.DESTREZA), null);
-							liga.agregarCombatiente(personajes.get(dato));
-							this.ligas.put(nombre, liga);
-							
-					}
-					if (this.ligas.get(dato) != null) {
-
-						liga = new Liga(
-								 "Liga " +dato,
-								this.ligas.get(dato).getEquipo(),
-								(int) this.ligas.get(dato)
-										.promediarHabilidades(
-												Caracteristica.VELOCIDAD),
-								(int) this.ligas.get(dato)
-										.promediarHabilidades(
-												Caracteristica.FUERZA),
-								(int) this.ligas.get(dato)
-										.promediarHabilidades(
-												Caracteristica.RESISTENCIA),
-								(int) this.ligas.get(dato).promediarHabilidades(
-												Caracteristica.DESTREZA),
-								this.ligas.get(dato).getCombatientes());
-						this.ligas.put(dato, liga);
-					}
-					} catch (NoSuchElementException e) {
-						e.getMessage();
-
-					} catch (NullPointerException e) {
-						e.getMessage();
-
-					}
+				} catch (NullPointerException e) {
+					e.getMessage();
 
 				}
+
+				
 
 				oneLine = lector.readLine();
 			}
@@ -363,12 +345,14 @@ public class Sistema {
 			System.out.println("Las ligas han sido cargadas !");
 
 		} catch (FileNotFoundException e) {
-			System.err.println("No se encontro archivo 'Ligas.in'");
+			System.err.println("No se encontro archivo 'ligas_in'");
 		} catch (IOException e) {
-			System.err.println("No se encontro archivo 'Ligas.in'");
+			System.err.println("No se encontro archivo 'ligas_in'");
 		}
 	}
 
+
+	
 	public void crearLiga() {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("Ingrese nombre de la liga: ");
@@ -443,7 +427,7 @@ public class Sistema {
 	
 	public void guardarEnArchivoLiga() {
 		try {
-			FileWriter archivo = new FileWriter("ligas.in.txt");
+			FileWriter archivo = new FileWriter("ligas_out.txt");
 			BufferedWriter escritor = new BufferedWriter(archivo);
 			Iterator<Entry<String, Liga>> itr = this.ligas.entrySet()
 					.iterator();
@@ -456,7 +440,7 @@ public class Sistema {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Las ligas fueron guardadas en el archivo local ligas.in.txt" );
+		System.out.println("Las ligas fueron guardadas en el archivo local ligas_out.txt" );
 
 	}
 
