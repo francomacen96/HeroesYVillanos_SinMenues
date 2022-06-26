@@ -225,8 +225,12 @@ public class Sistema {
 	}
 
 	public void listarPersonajes() {
-		Iterator<Entry<String, Combatiente>> itr = this.personajes.entrySet()
-				.iterator();
+		Iterator<Entry<String, Combatiente>> itr = this.personajes.entrySet().iterator();
+		
+		if(this.personajes.isEmpty()) {
+			System.err.println("No hay personajes cargados");
+			return;
+		}
 		while (itr.hasNext()) {
 			System.out.println(itr.next().getValue());
 		}
@@ -303,12 +307,16 @@ public class Sistema {
 			FileReader archivo = new FileReader("ligas_in.txt");
 			BufferedReader lector = new BufferedReader(archivo);
 			String oneLine = lector.readLine();
-
+			
 			while (oneLine != null) {
+				int i = 1;
 				try {	
 				String[] datos = oneLine.split(", ");
-									
-						Liga liga = new Liga(datos[0], this.personajes.get(datos[0]).getEquipo(),this.personajes.get(datos[0]).getCaracteristica(
+						
+						if(this.ligas.containsKey("Liga " + i + " de " + datos[0])) {
+							i++;
+						}
+						Liga liga = new Liga("Liga " + i + " de " + datos[0], this.personajes.get(datos[0]).getEquipo(),this.personajes.get(datos[0]).getCaracteristica(
 								Caracteristica.VELOCIDAD),
 							this.personajes.get(datos[0]).getCaracteristica(
 								Caracteristica.FUERZA),
@@ -316,7 +324,7 @@ public class Sistema {
 								Caracteristica.RESISTENCIA),
 							this.personajes.get(datos[0]).getCaracteristica(
 								Caracteristica.DESTREZA),null);
-						this.ligas.put(datos[0], liga);						
+						this.ligas.put(liga.getNombre(), liga);						
 				
 						for(String dato: datos) {
 							if(this.personajes.get(dato).getNombre().equals(dato)){
@@ -416,8 +424,12 @@ public class Sistema {
 	}
 
 	public void listarLigas() {
-		System.out.println("Las ligas son: ");
 		Iterator<Entry<String, Liga>> itr = this.ligas.entrySet().iterator();
+		if(this.ligas.isEmpty()) {
+			System.err.println("No hay ligas cargadas");
+			return;
+		}
+		System.out.println("Las ligas son: ");
 		while (itr.hasNext()) {
 			System.out.println(itr.next().getKey());
 
@@ -688,14 +700,12 @@ public class Sistema {
 	}
 
 	private void reporteCombatientesPorCaracteristicas() {
-		//PriorityQueue<Combatiente> reporte = new PriorityQueue<Combatiente>();
 		ArrayList<Combatiente> reporte = new ArrayList<Combatiente>();
 		Iterator<Entry<String,Combatiente>> itr1 = this.personajes.entrySet().iterator();
 		
 		while(itr1.hasNext()) {
-			System.out.println("Agregando ");
 			reporte.add(itr1.next().getValue());
-		}//@continue
+		}
 		
 		Collections.sort(reporte,new ComparadorPorTodasCaract());
 		listarCombatientes(reporte);

@@ -1,3 +1,7 @@
-Watchmen, The Comedian, Rorschach
-MinuteMen, Captain Metropoli, Dollar Bill, Hollis Mason
-MightPower, Watchmen, Sally Silk
+Frodo, Gandalf, Frodo
+Frodo, Frodo
+Sauron, Gandalf, Sam, Aragorn
+Sauron, Orco, Morgoth
+El Senior Oscuro, El Blanco, El Portador
+El Blanco
+Gandalf

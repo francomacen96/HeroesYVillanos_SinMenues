@@ -4,6 +4,6 @@ Villano, El Senior Oscuro, Sauron, 98, 2, 98, 2
 Heroe, El Blanco, Gandalf, 99, 1, 99, 1
 Heroe, El Portador, Frodo, 1, 90, 50, 1
 Heroe, El Jardinero, Sam, 1, 90, 40, 1
-Heroe, El guerrero, Pipin, 1, 80, 40, 5
-Heroe, El magnifico, Merry, 1, 80, 40, 4
+Heroe, El Guerrero, Pipin, 1, 80, 40, 5
+Heroe, El Magnifico, Merry, 1, 80, 40, 4
 Villano, Uruk-hai, Orco, 1, 80, 40, 4
