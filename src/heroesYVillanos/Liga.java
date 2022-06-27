@@ -18,23 +18,32 @@ public class Liga extends Combatiente{
 		
 		if(this.getEquipo() == combatiente.getEquipo()) {
 			combatientes.add(combatiente);
+			super.setCaracteristica(Caracteristica.VELOCIDAD, promediarHabilidades(Caracteristica.VELOCIDAD));
+			super.setCaracteristica(Caracteristica.FUERZA,promediarHabilidades(Caracteristica.FUERZA));
+			super.setCaracteristica(Caracteristica.RESISTENCIA, promediarHabilidades(Caracteristica.RESISTENCIA));
+			super.setCaracteristica(Caracteristica.DESTREZA, promediarHabilidades(Caracteristica.DESTREZA));
 		} else {
 			System.err.println(combatiente.getNombre() + " No es del mismo equipo");
 		}
 		
 	}
 
-	//este mÃ©todo tiene que ser usado por otro metodo
+	@Override
+	public int getCaracteristica(Caracteristica caracteristica) {
+		return promediarHabilidades(caracteristica); 
+	}
 	
-	public double promediarHabilidades(Caracteristica caracteristica) {
-		double promedio = 0;
+	// este mÃƒÂ©todo tiene que ser usado por otro metodo
+
+	public int promediarHabilidades(Caracteristica caracteristica) {
+		int promedio = 0;
 		int cantidad = 0;
-		for (Combatiente c: combatientes) {
+		for (Combatiente c : combatientes) {
 			promedio += c.getCaracteristica(caracteristica);
 			cantidad++;
 		}
-		return promedio/cantidad;
-		
+		return promedio / cantidad;
+
 	}
 	
 	public void eliminarCombatiente(Combatiente combatiente) {
