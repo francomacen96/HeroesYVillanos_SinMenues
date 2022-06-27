@@ -61,9 +61,13 @@ public class Liga extends Combatiente{
 	@Override
 	public String toString() {
 		Iterator<Combatiente> itr1 = combatientes.iterator();
-		String datos = "";
-		while(itr1.hasNext()) {
-			datos += itr1.next().getNombre()+", ";
+		String datos = " "+ "Velocidad: " + super.getCaracteristica(Caracteristica.VELOCIDAD) + ", "
+		+ "Fuerza: " + super.getCaracteristica(Caracteristica.FUERZA)+ ", " 
+		+ "Resistencia: "+ super.getCaracteristica(Caracteristica.RESISTENCIA) + ", "
+		+ "Destreza: "+ super.getCaracteristica(Caracteristica.DESTREZA)
+		+"\n Combatientes: ";
+		while (itr1.hasNext()) {
+			datos += itr1.next().getNombre() + ", ";
 		}
 		return datos;
 	}
