@@ -264,48 +264,54 @@ public class Sistema {
 	private void listarOpcionesLigas() {
 		System.out.println("1 - Carga desde archivo");
 		System.out.println("2 - Crear liga");
-		System.out.println("3 - Listado de ligas");
-		System.out.println("4 - Guardar en archivo ligas");
-		System.out.println("5 - Volver al menu");
+		System.out.println("3 - Agregar personaje existente a liga existente");
+		System.out.println("4 - Listado de ligas");
+		System.out.println("5 - Guardar en archivo ligas");
+		System.out.println("6 - Volver al menu");
 	}
 	
 	public void ejecutarFuncionLigas() {
-		
+
 		int opcion = 0;
-		
-		while(true) {
+
+		while (true) {
 			listarOpcionesLigas();
 			opcion = ingresarOpcion();
 			switch (opcion) {
-				case 1: {
-					cargaArchivoLiga();
-					break;
-				}
-				case 2: {
-					crearLiga();
-					break;
-				}
-				case 3: {
-					listarLigas();
-					break;
-				}
-				case 4: {
-					guardarEnArchivoLiga();
-					break;
-				}
-				case 5: {
-					return;
-				}default:{
-					System.err.println("Opcion no valida");
-					break;
-				}
+			case 1: {
+				cargaArchivoLiga();
+				break;
+			}
+			case 2: {
+				crearLiga();
+				break;
+				
+			}case 3: {
+				agregarCombatienteExistenteALigaExistente();
+				break;
+			}
+			case 4: {
+				listarLigas();
+				break;
+			}
+			case 5: {
+				guardarEnArchivoLiga();
+				break;
+			}
+			case 6: {
+				return;
+			}
+			default: {
+				System.err.println("Opcion no valida");
+				break;
+			}
 			}
 		}
 	}
 
 	public void cargaArchivoLiga() {
 		try {
-			FileReader archivo = new FileReader("ligas_in.txt");
+			FileReader archivo = new FileReader("ligas.in.txt");
 			//FileReader archivo = new FileReader("ligas2_in.txt"); //@test
 			
 			BufferedReader lector = new BufferedReader(archivo);
@@ -313,9 +319,6 @@ public class Sistema {
 			while (oneLine != null) {
 				int i = 1;
 				try {
-					//if(oneLine.equals("")) {
-					//	throw new IOException("Linea leida vacia");
-					//}
 					String[] datos = oneLine.split(", ");
 					String p = datos[0];
 					int s = 0;
@@ -337,12 +340,7 @@ public class Sistema {
 							Caracteristica.RESISTENCIA),
 						this.personajes.get(p).getCaracteristica(
 							Caracteristica.DESTREZA),null);
-					if((liga.getCaracteristica(Caracteristica.VELOCIDAD) <= 0)||
-							(liga.getCaracteristica(Caracteristica.FUERZA) <= 0)||
-							(liga.getCaracteristica(Caracteristica.RESISTENCIA) <= 0)||
-							(liga.getCaracteristica(Caracteristica.DESTREZA) <= 0)) {
-						throw new CombatienteCaractIncorrectas();
-					}				
+								
 					this.ligas.put(liga.getNombre(), liga);	
 					
 					System.out.println("Agregando combatientes a la nueva Liga");
@@ -356,7 +354,12 @@ public class Sistema {
 							liga.agregarCombatiente(this.ligas.get(datos[s]));
 						}
 					}
-					
+					if((liga.getCaracteristica(Caracteristica.VELOCIDAD) <= 0)||
+							(liga.getCaracteristica(Caracteristica.FUERZA) <= 0)||
+							(liga.getCaracteristica(Caracteristica.RESISTENCIA) <= 0)||
+							(liga.getCaracteristica(Caracteristica.DESTREZA) <= 0)) {
+						throw new CombatienteCaractIncorrectas();
+					}	
 						
 				} catch (NoSuchElementException e) {
 					e.getMessage();
@@ -403,14 +406,40 @@ public class Sistema {
 			ligas.put(nombreLiga, liga);
 			System.out.println("Se encontro al personaje indicado y fue agregado a la liga");
 		} else {
-			agregarCombatienteALiga(nombreLiga, nombre_Personaje);
+			agregarCombatienteALigaPorTeclado(nombreLiga, nombre_Personaje);
 
 		}
 		System.out.println("Su liga fue creada y guardado exitosamente !");
 
 	}
 
-	public void agregarCombatienteALiga(String nombreLiga,
+	public void agregarCombatienteExistenteALigaExistente() {
+		try {
+			Scanner entrada = new Scanner(System.in);
+			if (!this.ligas.isEmpty()) {
+			System.out.println("Ingrese nombre del personaje a agregar: ");
+			String nombrePersonaje = entrada.nextLine();
+			
+			System.out.println("Ingrese nombre de la liga: ");
+			String nombreLiga = entrada.nextLine();
+
+				if(this.personajes.containsKey(nombrePersonaje) && this.ligas.containsKey(nombreLiga)) {
+					this.ligas.get(nombreLiga).agregarCombatiente(this.personajes.get(nombrePersonaje));
+					System.out.println("El personaje "+nombrePersonaje +" ha sido agregado a la liga "+ nombreLiga);
+				} else {
+					System.out.print("No se encontro liga o personaje");
+			} else {				
+				System.out.println("No hay ligas cargadas");
+			}
+		} catch (NoSuchElementException e) {
+			e.getMessage();
+
+		} catch (NullPointerException e) {
+			e.getMessage();
+		} 
+	}
+
+	public void agregarCombatienteALigaPorTeclado(String nombreLiga,
 			String nombre_Personaje) {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("No se encontro el personaje " + nombre_Personaje
@@ -443,6 +472,7 @@ public class Sistema {
 		liga.agregarCombatiente(combatiente);
 		this.ligas.put(nombreLiga, liga);
 	}
+
 
 	public void listarLigas() {
 		Iterator<Entry<String, Liga>> itr = this.ligas.entrySet().iterator();
