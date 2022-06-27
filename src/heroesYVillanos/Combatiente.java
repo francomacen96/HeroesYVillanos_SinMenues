@@ -61,6 +61,10 @@ public abstract class Combatiente implements Comparable<Combatiente>{
 		}
 		return diferenteEquipo;
 	}
+	
+	public void setCaracteristica(Caracteristica c, int otroValor) {
+		this.caracteristicas.put(c, otroValor);
+	}
 
 	public int getCaracteristica(Caracteristica c) {
 		return caracteristicas.get(c);
