@@ -19,28 +19,7 @@ Tenemos dos sectores, en el primero se incluirán las clases:
 
 El segundo sector seran: Combatiente, Liga, Heroe, Villano, Caracteristica, Equipo. Donde se podran crear clases de cada uno y llenando sus parametros con la informacion distribuida del Sistema.
 
-Para la implementación del menu principal, se decidió implementar el patron de diseño Singleton, ya que se prefiere que la clase MenuPrincipal sea instanciada unicamente una vez. MenuPrincipal a su vez llamará a la clase SubMenu ya que posee sus mismas característiicas.
-Luego, para las diferentes opciones y submenues, se utilizará un patron Composite con una estructura de clases como la detallada a continuación: @todo cambiar ItemSimple
-
-ItemAbstracto (abstract)
-        ^
-        |
-        |
-  _______________
- |               |
- |               |
-ItemSubMenu    ItemSimple(abstract) 
-               ^     ^         ^
-		       |     |         |
-		       |     |         |
-	 Ej:  Opcion1  Opcion2   [Opcion...n]
-
-La clase abstracta ItemAbstracto integrará todos las las clases relativas a menúes, opciones y submenúes. Su método abstracto ejecutarFuncion()  será el que se implemente por las diferentes clases hijas de modo que cada una de ellas ejecutará una función de acuerdo a lo necesario.
-ItemSubMenu será una clase concreta cuyo ejecutarFuncion() será listarOpciones() que displayará por donde corresponda (consola) las diferentes opciones de 
-que el mismo contenga, sean opciones simples o más submenues. Contendrá un array de variables ItemAbstracto.
-Cada uno de los submenúes necesarios será buildeado como un ItemSubMenu y se le agregarán al arraylist las opciones necesarias.
-ItemSimple será una clase abstracta cuyo método sin implementar será ejecutarFuncion(). Será a su vez heredado por las distintas opciones a utilizar en el programa, las cuales serán opciones simples (no serán submenúes) e implementarán ejecutarFuncion cada una a su manera.
-
+Para la implementación del menu principal, se decidió utilizar la funcion menues() que permite el ingreso de una opción numérica seleccionada de una lista de opciones que son displayadas por consola. Dentro de ella actuarán cuatro funciones principales : ejecutarFuncionPersonajes(), ejecutarFuncionLigas(), ejecutarFuncionBatallar() y ejecutarFuncionReportes(), cada una de las cuales displayará nuevas opciones relacionadas a lo que su nombre hace referencia. 
 
 c. Descripción de cada archivo *.java comprendido en solución del problema
 

@@ -377,7 +377,8 @@ public class Sistema {
 		} catch (FileNotFoundException e) {
 			System.err.println("No se encontro archivo de entrada de ligas");
 		} catch (IOException e) {
-			System.err.println(e.getMessage());
+			//System.err.println(e.getMessage());
+			System.err.println("Error archivo de entrada ligas");
 		}
 	}
 	
