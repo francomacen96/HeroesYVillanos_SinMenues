@@ -428,6 +428,7 @@ public class Sistema {
 					System.out.println("El personaje "+nombrePersonaje +" ha sido agregado a la liga "+ nombreLiga);
 				} else {
 					System.out.print("No se encontro liga o personaje");
+				}
 			} else {				
 				System.out.println("No hay ligas cargadas");
 			}
