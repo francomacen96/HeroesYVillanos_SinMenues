@@ -6,11 +6,10 @@ import java.util.Iterator;
 
 public class Liga extends Combatiente{
 	
-	private static HashSet<Combatiente> combatientes;
+	private HashSet<Combatiente> combatientes;
 	
 	public Liga(String nombre, Equipo equipo, int velocidad, int fuerza, int resistencia, int destreza, HashSet<Combatiente> combatientes) {
 		super(nombre, equipo, velocidad, fuerza, resistencia, destreza);
-		Liga.combatientes = combatientes;
 		this.combatientes = new HashSet<Combatiente>();
 	}
 
@@ -42,7 +41,7 @@ public class Liga extends Combatiente{
 		combatientes.remove(combatiente);
 	}
 
-	public static HashSet<Combatiente> getCombatientes() {
+	public HashSet<Combatiente> getCombatientes() {
 		return combatientes;
 	}
 	
