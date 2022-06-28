@@ -26,6 +26,34 @@ public class Liga extends Combatiente{
 			System.err.println(combatiente.getNombre() + " No es del mismo equipo");
 		}		
 	}
+	
+	@Override
+	public boolean esGanador(Combatiente combatiente, Caracteristica c) {
+		boolean esGanador = false;
+		int contador = 0;
+
+		try {
+			examinarEquipo(combatiente, c);
+
+			while (this.getCaracteristica(c) == combatiente.getCaracteristica(c) && contador < 4) {
+				c = c.nextCaracteristica(c);
+				contador++;
+			}
+			if (this.getCaracteristica(c) > combatiente.getCaracteristica(c)) {
+				esGanador = true;
+				System.out.println("La " + this.getNombre() + " es la vencedora del combate por " + c);
+			} else if (this.getCaracteristica(c) < combatiente.getCaracteristica(c)) {
+				System.out.println("La " + combatiente.getNombre() + " es la vencedora del combate por " + c);
+			} else {
+				System.out.println("El resultado de la pelea es empate en todas las caracteristicas");
+			}
+
+		} catch (PeleasEntreElMismoEquipoExcepcion e) {
+			System.err.println("No se pueden enfrentar 2 combatientes del mismo equipo!!!");
+		}
+
+		return esGanador;
+	}
 
 	@Override
 	public int getCaracteristica(Caracteristica caracteristica) {
