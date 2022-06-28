@@ -49,7 +49,7 @@ public class Liga extends Combatiente{
 			}
 
 		} catch (PeleasEntreElMismoEquipoExcepcion e) {
-			System.err.println("No se pueden enfrentar 2 combatientes del mismo equipo!!!");
+			System.err.println("No se pueden enfrentar 2 ligas del mismo equipo!!!");
 		}
 
 		return esGanador;
