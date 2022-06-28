@@ -496,7 +496,7 @@ public class Sistema {
 			Iterator<Entry<String, Liga>> itr = this.ligas.entrySet()
 					.iterator();
 			while (itr.hasNext()) {
-				escritor.write(itr.next().getValue().getNombre());
+				escritor.write(itr.next().getValue().toString());
 				escritor.newLine();
 			}
 
