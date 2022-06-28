@@ -48,7 +48,7 @@ public abstract class Combatiente implements Comparable<Combatiente>{
 	}
 
 	
-	private boolean examinarEquipo(Combatiente c, Caracteristica caracteristica) throws PeleasEntreElMismoEquipoExcepcion {
+	protected boolean examinarEquipo(Combatiente c, Caracteristica caracteristica) throws PeleasEntreElMismoEquipoExcepcion {
 		boolean diferenteEquipo = true;
 		if (this.getEquipo().equals(c.getEquipo())) {
 			throw new PeleasEntreElMismoEquipoExcepcion();
