@@ -520,7 +520,7 @@ public class Sistema {
 		System.out.println("4 - Volver al menu");
 	}
 	
-	public void ejecutarFuncionBatallar() {
+public void ejecutarFuncionBatallar() {
 		
 		Scanner entrada = new Scanner(System.in);
 		int opcion = 0;
@@ -532,13 +532,14 @@ public class Sistema {
 				
 				case 1: {
 					entrada = new Scanner(System.in);
-					System.out.println("Ingrese nombre de personaje: ");
+					listarPersonajes();
+					System.out.println("INGRESE EL NOMBRE DEL COMBATIENTE: ");
 					String nombrePersonaje = entrada.nextLine();
 					
-					System.out.println("Ingrese nombre de combatiente a enfrentar: ");
+					System.out.println("INGRESE EL NOMBRE DEL COMBATIENTE A QUIEN ENFRENTARA "+ nombrePersonaje +": ");
 					String nombreContrincante = entrada.nextLine();
 					
-					System.out.println("Ingrese caracteristica a determinar ganador: ");
+					System.out.println("INGRESE BAJO QUE CARACTERISTICA COMBATIRAN: ");
 					Caracteristica c = Caracteristica.valueOf(entrada.nextLine().toUpperCase());
 					batallar1Contra1(this.personajes,nombrePersonaje, nombreContrincante, c);
 					ejecutarFuncionBatallar();
@@ -547,11 +548,13 @@ public class Sistema {
 				}
 				case 2: {
 					entrada = new Scanner(System.in);
-					System.out.println("Ingrese nombre de personaje: ");
+					listarPersonajes();
+					System.out.println("INGRESE NOMBRE DEL COMBATIENTE: ");
 					String nombrePersonaje = entrada.nextLine();
-					System.out.println("Ingrese nombre de liga a enfrentar: ");
+					listarLigas();
+					System.out.println("INGRESE NOMBRE DE LA LIGA A QUIEN ENFRENTARA"+ nombrePersonaje+ ": ");
 					String nombreLiga = entrada.nextLine();
-					System.out.println("Ingrese bajo que caracteristica combatiran: ");
+					System.out.println("INGRESE BAJO QUE CARACTERISTICA COMBATIRAN: ");
 					Caracteristica c = Caracteristica.valueOf(entrada.nextLine()
 							.toUpperCase());
 					batallar1ContraLiga(this.personajes,this.ligas,nombrePersonaje, nombreLiga, c);
@@ -561,15 +564,15 @@ public class Sistema {
 				}
 				case 3: {
 					entrada = new Scanner(System.in);
-					System.out.println("Ingrese nombre de liga: ");
-					String nombreLiga1 = entrada.nextLine();
-					System.out.println("Ingrese nombre de liga a quien enfrentará: "
-							+ nombreLiga1);
-					String nombreLiga2 = entrada.nextLine();
-					System.out.println("Ingrese bajo que caracteristica combatiran: ");
+					listarLigas();
+					System.out.println("INGRESE NOMBRE DE LA LIGA: ");
+					String nombreLiga = entrada.nextLine();
+					System.out.println("INGRESE NOMBRE DE LA LIGA A QUIEN ENFRENTARA"+ nombreLiga+ " :");
+					String nombreLigaContrincante = entrada.nextLine();
+					System.out.println("INGRESE BAJO QUE CARACTERISTICA COMBATIRAN: ");
 					Caracteristica c = Caracteristica.valueOf(entrada.nextLine()
 							.toUpperCase());
-					batallarLigaContraLiga(this.ligas,nombreLiga1, nombreLiga2, c);
+					batallarLigaContraLiga(this.ligas,nombreLiga, nombreLigaContrincante, c);
 					ejecutarFuncionBatallar();
 					entrada.close();
 					break;
