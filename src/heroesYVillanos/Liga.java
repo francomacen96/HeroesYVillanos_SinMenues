@@ -18,32 +18,25 @@ public class Liga extends Combatiente{
 		
 		if(this.getEquipo() == combatiente.getEquipo()) {
 			combatientes.add(combatiente);
-			super.setCaracteristica(Caracteristica.VELOCIDAD, promediarHabilidades(Caracteristica.VELOCIDAD));
-			super.setCaracteristica(Caracteristica.FUERZA,promediarHabilidades(Caracteristica.FUERZA));
-			super.setCaracteristica(Caracteristica.RESISTENCIA, promediarHabilidades(Caracteristica.RESISTENCIA));
-			super.setCaracteristica(Caracteristica.DESTREZA, promediarHabilidades(Caracteristica.DESTREZA));
+			super.setCaracteristica(Caracteristica.VELOCIDAD, getCaracteristica(Caracteristica.VELOCIDAD));
+			super.setCaracteristica(Caracteristica.FUERZA,getCaracteristica(Caracteristica.FUERZA));
+			super.setCaracteristica(Caracteristica.RESISTENCIA, getCaracteristica(Caracteristica.RESISTENCIA));
+			super.setCaracteristica(Caracteristica.DESTREZA, getCaracteristica(Caracteristica.DESTREZA));
 		} else {
 			System.err.println(combatiente.getNombre() + " No es del mismo equipo");
-		}
-		
+		}		
 	}
 
 	@Override
 	public int getCaracteristica(Caracteristica caracteristica) {
-		return promediarHabilidades(caracteristica); 
-	}
-	
-	// este mÃƒÂ©todo tiene que ser usado por otro metodo
-
-	public int promediarHabilidades(Caracteristica caracteristica) {
-		int promedio = 0;
-		int cantidad = 0;
+		int suma = 0; int cantidad = 0; int promedio = 0;	
 		for (Combatiente c : combatientes) {
-			promedio += c.getCaracteristica(caracteristica);
+			suma += c.getCaracteristica(caracteristica);
 			cantidad++;
+		} if (cantidad != 0) {
+		promedio = suma / cantidad;
 		}
-		return promedio / cantidad;
-
+		return promedio;
 	}
 	
 	public void eliminarCombatiente(Combatiente combatiente) {
