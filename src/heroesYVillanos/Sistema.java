@@ -311,7 +311,7 @@ public class Sistema {
 
 	public void cargaArchivoLiga() {
 		try {
-			FileReader archivo = new FileReader("ligas.in.txt");
+			FileReader archivo = new FileReader("ligas_in.txt");
 			//FileReader archivo = new FileReader("ligas2_in.txt"); //@test
 			
 			BufferedReader lector = new BufferedReader(archivo);
